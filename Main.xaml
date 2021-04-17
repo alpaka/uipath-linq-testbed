@@ -1,0 +1,451 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1710,7631.33333333333" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Diagnostics;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="28">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="17">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="559.333333333333,7466.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:Int32[][]" Name="data" />
+      <Variable x:TypeArguments="sd:DataTable" Name="rhs" />
+      <Variable x:TypeArguments="sd:DataTable" Name="lhs" />
+      <Variable x:TypeArguments="sd:DataTable" Name="joinTable" />
+      <Variable x:TypeArguments="sd1:Stopwatch" Name="sw" />
+      <Variable x:TypeArguments="x:TimeSpan" Name="ts" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="517.333333333333,402" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+      <TryCatch.Try>
+        <ui:InvokeCode ContinueOnError="{x:Null}" Code="lhs = new DataTable();&#xD;&#xA;lhs.Columns.Add(&quot;ID&quot;, typeof(Int32));&#xD;&#xA;lhs.Columns.Add(&quot;Value&quot;, typeof(Int32));&#xD;&#xA;&#xD;&#xA;rhs = new DataTable();&#xD;&#xA;rhs.Columns.Add(&quot;ID&quot;, typeof(Int32));&#xD;&#xA;rhs.Columns.Add(&quot;Unvalue&quot;, typeof(Int32));&#xD;&#xA;&#xD;&#xA;var rand = new Random(1329847);&#xD;&#xA;int numInts = 500000;&#xD;&#xA;int maxID = 100000;&#xD;&#xA;int maxValue = 100000;&#xD;&#xA;for (int i = 0; i &lt; numInts; ++i) {&#xD;&#xA;&#x9;lhs.Rows.Add(rand.Next(maxID), rand.Next(maxValue));&#xD;&#xA;&#x9;rhs.Rows.Add(rand.Next(maxID), rand.Next(maxValue));&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_6" Language="CSharp">
+          <ui:InvokeCode.Arguments>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</OutArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</OutArgument>
+          </ui:InvokeCode.Arguments>
+        </ui:InvokeCode>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_6" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="517.333333333333,572.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_4">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="480.666666666667,494" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <TryCatch.Try>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="lhs = New DataTable&#xD;&#xA;lhs.Columns.Add(&quot;ID&quot;, GetType(Int32))&#xD;&#xA;lhs.Columns.Add(&quot;Name&quot;, GetType(String))&#xD;&#xA;&#xD;&#xA;lhs.Rows.Add({1, &quot;Stefan&quot;})&#xD;&#xA;lhs.Rows.Add({3, &quot;Elaine&quot;})&#xD;&#xA;&#xD;&#xA;rhs = New DataTable&#xD;&#xA;rhs.Columns.Add(&quot;ID&quot;, GetType(Int32))&#xD;&#xA;rhs.Columns.Add(&quot;Salary&quot;, GetType(Decimal))&#xD;&#xA;&#xD;&#xA;rhs.Rows.Add({1, 1.54})&#xD;&#xA;rhs.Rows.Add({3, 15.00})" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                <ui:InvokeCode.Arguments>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="lhs">
+                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="lhs" />
+                  </OutArgument>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="rhs">
+                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="rhs" />
+                  </OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="517.333333333333,1456.66666666667" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="480.666666666667,1378" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+            <TryCatch.Try>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Salary&quot;, typeof(Decimal));&#xD;&#xA;&#xD;&#xA;foreach (DataRow r in lhs.Rows) {&#xD;&#xA;&#x9;foreach (DataRow r2 in rhs.Rows) {&#xD;&#xA;&#x9;&#x9;if (r2[&quot;ID&quot;].Equals(r[&quot;ID&quot;])) {&#xD;&#xA;&#x9;&#x9;&#x9;joinTable.Rows.Add(new []{r[&quot;ID&quot;], r[&quot;Name&quot;], r2[&quot;Salary&quot;]});&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+                <ui:InvokeCode.Arguments>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">
+                    <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="lhs" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">
+                    <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="rhs" />
+                  </InArgument>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">
+                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="joinTable" />
+                  </OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+            <TryCatch.Try>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Salary&quot;, typeof(Decimal));&#xD;&#xA;&#xD;&#xA;var joinQuery = lhs.AsEnumerable().Join(rhs.AsEnumerable(), &#xD;&#xA;&#x9;person =&gt; person[&quot;ID&quot;],&#xD;&#xA;&#x9;salary =&gt; salary[&quot;ID&quot;],&#xD;&#xA;&#x9;(person,  salary) =&gt; new {ID = person[&quot;ID&quot;], Name = person[&quot;Name&quot;], Salary = salary[&quot;Salary&quot;]}&#xD;&#xA;);&#xD;&#xA;foreach (var r in joinQuery) {&#xD;&#xA;&#x9;joinTable.Rows.Add(new [] { r.ID, r.Name, r.Salary});&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_4" Language="CSharp">
+                <ui:InvokeCode.Arguments>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</InArgument>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">[joinTable]</OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+            <TryCatch.Try>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Salary&quot;, typeof(Decimal));&#xD;&#xA;&#xD;&#xA;var joinQuery = from person in lhs.AsEnumerable() &#xD;&#xA;&#x9;join salary in rhs.AsEnumerable()&#xD;&#xA;&#x9;on person[&quot;ID&quot;] equals salary[&quot;ID&quot;]&#xD;&#xA;&#x9;select new {ID = person[&quot;ID&quot;], Name = person[&quot;Name&quot;], Salary = salary[&quot;Salary&quot;]};&#xD;&#xA;&#xD;&#xA;foreach (var r in joinQuery) {&#xD;&#xA;&#x9;joinTable.Rows.Add(new [] { r.ID, r.Name, r.Salary});&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_5" Language="CSharp">
+                <ui:InvokeCode.Arguments>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</InArgument>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">[joinTable]</OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="517.333333333333,1208.66666666667" sap2010:WorkflowViewState.IdRef="CommentOut_5">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="418,1130" sap2010:WorkflowViewState.IdRef="Sequence_10">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Join Naive" sap:VirtualizedContainerService.HintSize="376,1038" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_7" Message="[&quot;Starting naive join&quot;]" />
+            <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign.To>
+                <OutArgument x:TypeArguments="sd1:Stopwatch">[sw]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="sd1:Stopwatch">[Stopwatch.StartNew]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Unvalue&quot;, typeof(Decimal));&#xD;&#xA;&#xD;&#xA;foreach (DataRow l in lhs.Rows) {&#xD;&#xA;&#x9;foreach (DataRow r in rhs.Rows) {&#xD;&#xA;&#x9;&#x9;if (l[&quot;ID&quot;].Equals(r[&quot;ID&quot;])) {&#xD;&#xA;&#x9;&#x9;&#x9;joinTable.Rows.Add(new []{l[&quot;ID&quot;], l[&quot;Value&quot;], r[&quot;Unvalue&quot;]});&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_8" Language="CSharp">
+              <ui:InvokeCode.Arguments>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</InArgument>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</InArgument>
+                <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">[joinTable]</OutArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+            <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Stop">
+              <InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="sd1:Stopwatch">[sw]</InArgument>
+              </InvokeMethod.TargetObject>
+            </InvokeMethod>
+            <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:TimeSpan">[ts]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:TimeSpan">[sw.Elapsed]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_8" Message="[&quot;Naive join rows: &quot; + joinTable.Rows.Count.ToString]" />
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[&quot;Naive join runtime: &quot; + String.Format(&quot;{0:00}.{1:00}&quot;, ts.Seconds,ts.Milliseconds)]" />
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <Sequence DisplayName="Join Data Tables" sap:VirtualizedContainerService.HintSize="517.333333333333,936" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[&quot;Starting Join Data Tables&quot;]" />
+      <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd1:Stopwatch">[sw]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[Stopwatch.StartNew]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:JoinDataTables DataTable1="[lhs]" DataTable2="[rhs]" DisplayName="Join Data Tables" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="JoinDataTables_1" JoinType="Inner" OutputDataTable="[joinTable]">
+        <ui:JoinDataTables.Arguments>
+          <scg:List x:TypeArguments="ui:JoinOperationArgument" Capacity="4">
+            <ui:JoinOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="EQ">
+              <ui:JoinOperationArgument.Column1>
+                <InArgument x:TypeArguments="x:String">["ID"]</InArgument>
+              </ui:JoinOperationArgument.Column1>
+              <ui:JoinOperationArgument.Column2>
+                <InArgument x:TypeArguments="x:String">["ID"]</InArgument>
+              </ui:JoinOperationArgument.Column2>
+            </ui:JoinOperationArgument>
+          </scg:List>
+        </ui:JoinDataTables.Arguments>
+      </ui:JoinDataTables>
+      <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Stop">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[sw]</InArgument>
+        </InvokeMethod.TargetObject>
+      </InvokeMethod>
+      <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:TimeSpan">[ts]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:TimeSpan">[sw.Elapsed]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;Join Data Tables rows: &quot; + joinTable.Rows.Count.ToString]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;Join Data Tables runtime: &quot; + String.Format(&quot;{0:00}.{1:00}&quot;, ts.Seconds,ts.Milliseconds)]" />
+    </Sequence>
+    <Sequence DisplayName="Join LINQ SQL" sap:VirtualizedContainerService.HintSize="517.333333333333,1279.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Starting join with LINQ (SQL)&quot;]" />
+      <Assign sap:VirtualizedContainerService.HintSize="438.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd1:Stopwatch">[sw]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[Stopwatch.StartNew]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+        <TryCatch.Try>
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Unvalue&quot;, typeof(Int32));&#xD;&#xA;&#xD;&#xA;var joinQuery = from l in lhs.AsEnumerable() &#xD;&#xA;&#x9;join r in rhs.AsEnumerable()&#xD;&#xA;&#x9;on l[&quot;ID&quot;] equals r[&quot;ID&quot;]&#xD;&#xA;&#x9;select new[] {l[&quot;ID&quot;], l[&quot;Value&quot;], r[&quot;Unvalue&quot;]};&#xD;&#xA;&#xD;&#xA;foreach (var r in joinQuery) {&#xD;&#xA;&#x9;joinTable.Rows.Add(r);&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_7" Language="CSharp">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">[joinTable]</OutArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_7" />
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+      <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="438.666666666667,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Stop">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[sw]</InArgument>
+        </InvokeMethod.TargetObject>
+      </InvokeMethod>
+      <Assign sap:VirtualizedContainerService.HintSize="438.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:TimeSpan">[ts]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:TimeSpan">[sw.Elapsed]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;Join with LINQ (SQL) rows: &quot; + joinTable.Rows.Count.ToString]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_6" Message="[&quot;Join with LINQ (SQL) runtime: &quot; + String.Format(&quot;{0:00}.{1:00}&quot;, ts.Seconds,ts.Milliseconds)]" />
+    </Sequence>
+    <Sequence DisplayName="Join LINQ Functional" sap:VirtualizedContainerService.HintSize="517.333333333333,1279.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_10" Message="[&quot;Starting join with LINQ (Functional)&quot;]" />
+      <Assign sap:VirtualizedContainerService.HintSize="438.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd1:Stopwatch">[sw]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[Stopwatch.StartNew]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,402" sap2010:WorkflowViewState.IdRef="TryCatch_8">
+        <TryCatch.Try>
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="joinTable = lhs.Clone();&#xD;&#xA;joinTable.Columns.Add(&quot;Unvalue&quot;, typeof(Int32));&#xD;&#xA;&#xD;&#xA;var joinQuery =lhs.AsEnumerable().Join(rhs.AsEnumerable(),&#xD;&#xA;&#x9;l =&gt; l[&quot;ID&quot;],&#xD;&#xA;&#x9;r =&gt; r[&quot;ID&quot;],&#xD;&#xA;&#x9;(l,r) =&gt; new[] {l[&quot;ID&quot;], l[&quot;Value&quot;], r[&quot;Unvalue&quot;]});&#xD;&#xA;&#xD;&#xA;foreach (var r in joinQuery) {&#xD;&#xA;&#x9;joinTable.Rows.Add(r);&#xD;&#xA;}" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_9" Language="CSharp">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="lhs">[lhs]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="rhs">[rhs]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="joinTable">[joinTable]</OutArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_8">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <Throw Exception="[exception.InnerException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_8" />
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+      <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="438.666666666667,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_8" MethodName="Stop">
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="sd1:Stopwatch">[sw]</InArgument>
+        </InvokeMethod.TargetObject>
+      </InvokeMethod>
+      <Assign sap:VirtualizedContainerService.HintSize="438.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:TimeSpan">[ts]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:TimeSpan">[sw.Elapsed]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_11" Message="[&quot;Join with LINQ (Functional) rows: &quot; + joinTable.Rows.Count.ToString]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_12" Message="[&quot;Join with LINQ (Functional) runtime: &quot; + String.Format(&quot;{0:00}.{1:00}&quot;, ts.Seconds,ts.Milliseconds)]" />
+    </Sequence>
+  </Sequence>
+</Activity>
